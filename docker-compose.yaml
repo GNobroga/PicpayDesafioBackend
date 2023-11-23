@@ -1,0 +1,18 @@
+services:
+
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: db 
+      POSTGRES_PASSWORD: db 
+      POSTGRES_DB: challange
+    ports:
+      - '5432:5432'
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin 
+    ports:
+      - '15000:80'

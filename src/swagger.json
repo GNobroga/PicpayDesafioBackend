@@ -1,0 +1,189 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API de Usuários",
+    "description": "API para gerenciamento de usuários e transações"
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Obter todos os usuários",
+        "description": "Obter uma lista de todos os usuários",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Resposta bem-sucedida",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Lista de usuários",
+                  "users": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar um novo usuário",
+        "description": "Criar um novo usuário",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "João Silva",
+                "email": "joao@example.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Usuário criado com sucesso",
+                  "user": {
+                    "id": 1,
+                    "name": "João Silva",
+                    "email": "joao@example.com"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Obter um usuário por ID",
+        "description": "Obter detalhes de um usuário por ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID do usuário"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta bem-sucedida",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Detalhes do usuário",
+                  "user": {
+                    "id": 1,
+                    "name": "João Silva",
+                    "email": "joao@example.com"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar um usuário por ID",
+        "description": "Atualizar detalhes de um usuário por ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID do usuário"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Nome Atualizado"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "example": {
+                  "user": {
+                    "id": 1,
+                    "name": "Nome Atualizado",
+                    "email": "joao@example.com"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir um usuário por ID",
+        "description": "Excluir um usuário por ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID do usuário"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Usuário excluído com sucesso"
+          }
+        }
+      }
+    },
+    "/transaction": {
+      "post": {
+        "summary": "Realizar uma transferência entre usuários",
+        "description": "Realizar uma transferência entre usuários",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "senderId": 1,
+                "recipientId": 2,
+                "amount": 100
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transferência bem-sucedida",
+            "content": {
+              "application/json": {
+                "example": {
+                  "done": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
