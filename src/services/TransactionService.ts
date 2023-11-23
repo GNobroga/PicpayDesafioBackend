@@ -12,11 +12,11 @@ interface ITransferDetails {
 }
 
 export default class TransactionService {
-    
+
     private static readonly _repository = new UserRepository();
     private static readonly _mailer = new SendMailerService();
     private static readonly _authorizer = new AuthorizerService();
-    
+
     public async makeTransfer({ senderId, recipientId, amount }: ITransferDetails) {
         const sender = await TransactionService._repository.findById(senderId);
         const recipient = await TransactionService._repository.findById(recipientId);
@@ -26,19 +26,19 @@ export default class TransactionService {
         }
 
         if (sender.cnpj) {
-            throw new AppError('Usuário lojista apenas pode receber pagamento.', 400);
+            throw new AppError('Usuários lojistas apenas podem receber pagamento.', 400);
         }
 
         if (amount <= 0) {
-            throw new AppError('Valor transferido é menor ou igual a zero.', 400);
+            throw new AppError('Valor a ser transferido é menor ou igual a zero.', 400);
         }
 
         if (sender.wallet <= 0 || sender.wallet < amount) {
             throw new AppError('Saldo insuficiente para transferir.', 400);
-        } 
+        }
 
         if (!await TransactionService._authorizer.authorize()) {
-            throw new AppError('Não autorizado para fazer essa operação no momento.', 403);
+            throw new AppError('Não autorizado para fazer esta operação no momento.', 403);
         }
 
         await this.deductBalances(sender, recipient, amount);
@@ -64,7 +64,7 @@ export default class TransactionService {
             await transaction.commit();
         } catch (error: any) {
             await transaction.rollback();
-            throw new AppError('Erro durante a transação no banco de dados.', 500);
+            return false;
         }
         return true;
     }
