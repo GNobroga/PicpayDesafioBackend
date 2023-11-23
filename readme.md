@@ -63,15 +63,11 @@ Requisitos:
 
 ### Payload
 
-Faça uma **proposta** :heart: de payload, se preferir, temos uma exemplo aqui:
-
-POST /transaction
-
 ```json
 {
-    "value": 100.0,
-    "payer": 4,
-    "payee": 15
+    "senderId": 100.0,
+    "recipientId": 4,
+    "amount": 15
 }
 ```
 
